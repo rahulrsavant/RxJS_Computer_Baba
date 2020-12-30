@@ -9,30 +9,30 @@ export class AppComponent implements OnInit{
   title = 'RxJs-Computer-baba';
   ngOnInit(): void {
    
-    function testFunction(A:Function, B:Function) {
-      let x = 0;
+    function executor(resolve:Function,reject:Function) {
+      let x = 10;
     
     // The producing code (this may take some time)
     
       if (x == 0) {
-        A("OK..","second");
-      } else {
-        B("Error..");
+        resolve("zero");
+      }else{
+        reject("error")
       }
     }
 
-    let myPromise = new Promise(testFunction);
-    
-    myPromise.then(
-      function(value) {  console.log(value);},
-    );
+  new Promise(executor)
+  .then(function(value) {  
+    console.log("data is :",value);}, 
+    )
+  .catch( function(error) {  
+    console.log("error is ",error);
+  })
+  .finally( function() {  
+    console.log("clean your resourcess here....");
+  });
 
-    myPromise.catch(
-      function(error) {  console.log(error);}
-    );
-    myPromise.finally(
-      function() {  console.log("clean your resourcess here....");}
-    );
+
   }
 
 
